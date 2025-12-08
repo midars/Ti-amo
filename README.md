@@ -3,288 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Una Pregunta Muy Importante! ❤️</title>
+    <title>Para Mi Amor: Un Jardín Mágico</title>
     <style>
-        /* Estilos CSS */
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap');
-
+        /* --- 1. VARIABLES DE COLOR Y FUENTES --- */
         :root {
-            --color-fondo: #fce4ec; /* Rosa muy claro */
-            --color-principal: #e91e63; /* Rosa fuerte/rojo */
-            --color-secundario: #880e4f; /* Rosa oscuro */
-            --color-texto: #333333;
-            --color-hover: #ff4081; /* Rosa claro para hover */
+            --primary-light: #FFC0CB; /* Rosa claro */
+            --primary-dark: #FF69B4;  /* Rosa fuerte (rosa chicle) */
+            --secondary-light: #ADD8E6; /* Azul cielo claro */
+            --secondary-dark: #87CEEB;  /* Azul cielo */
+            --accent-color: #DA70D6;    /* Orquídea (Morado suave) */
+            --text-main: #4B0082;       /* Índigo */
+            --text-highlight: #FFF0F5;  /* Flor de lavanda pálida */
+            --sparkle-color: #FFFFE0;   /* Amarillo muy pálido (limón chiflado) */
         }
 
         body {
-            background-color: var(--color-fondo);
+            margin: 0;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Muy importante para el efecto de partículas */
+            font-family: 'Dancing Script', cursive; /* Fuente elegante y cursiva */
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+            background-size: 400% 400%; /* Para la animación del degradado */
+            animation: gradientAnimation 15s ease infinite; /* Animación del fondo */
+            color: var(--text-main);
             text-align: center;
-            overflow: hidden; /* Oculta las partículas fuera de la vista */
         }
 
-        .container {
-            background-color: #ffffff;
-            padding: 40px 60px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        /* --- Animación del degradado de fondo --- */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 2. ESTILOS DEL CONTENEDOR DE MENSAJE PRINCIPAL --- */
+        .main-message-container {
             position: relative;
-            z-index: 10; /* Asegura que el contenido esté sobre las partículas */
-            animation: fadeIn 1.5s ease-out;
+            z-index: 100;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.85); /* Fondo blanco semitransparente */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque detrás del contenedor */
+            border: 2px solid var(--accent-color);
+            max-width: 80%;
+            transition: all 0.5s ease-in-out;
+            cursor: pointer; /* Indica que es interactivo */
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        .main-message-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.5em; /* Más grande */
-            color: var(--color-principal);
-            margin-bottom: 5px;
-            animation: bounceIn 1.5s ease-out;
+        h1 {
+            font-size: 3.5em; /* Tamaño grande para el título */
+            margin: 0 0 15px 0;
+            color: var(--primary-dark);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
         }
 
-        .question {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2em;
-            color: var(--color-secundario);
-            margin-top: 5px;
-            margin-bottom: 30px;
-            font-weight: 700;
-            animation: slideInUp 2s ease-out;
+        .reveal-message {
+            font-size: 1.8em;
+            color: var(--text-main);
+            opacity: 0; /* Inicialmente oculto */
+            max-height: 0; /* Para la animación de revelado */
+            overflow: hidden;
+            transition: opacity 1s ease-in-out, max-height 1s ease-in-out;
+            margin-top: 20px;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.1); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
+        .reveal-message.visible {
+            opacity: 1;
+            max-height: 200px; /* Suficiente para mostrar el texto */
         }
 
-        @keyframes slideInUp {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        .buttons-group {
-            display: flex;
-            justify-content: center;
-            gap: 30px; /* Espacio entre los botones */
-        }
-
-        .button {
-            padding: 15px 35px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Botón "¡SÍ!" */
-        #yes-button {
-            background-color: var(--color-principal);
-            color: white;
-        }
-
-        #yes-button:hover {
-            background-color: var(--color-hover);
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Botón "Tal vez..." */
-        #maybe-button {
-            background-color: #cccccc;
-            color: var(--color-texto);
-            position: absolute; /* Para que se mueva */
-            transform: none; /* Resetear cualquier transformación inicial */
-        }
-
-        #maybe-button:hover {
-            background-color: #bbbbbb;
-        }
-
-        /* ----- Efecto de Partículas (Corazones) ----- */
-        .heart {
+        /* --- 3. ESTILOS DE LAS PARTÍCULAS MÁGICAS --- */
+        .sparkle {
             position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: var(--color-principal);
-            transform: rotate(-45deg);
-            pointer-events: none; /* Para que no interfieran con clics */
-            animation: floatUp 6s infinite ease-out;
-            opacity: 0;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: var(--color-principal);
+            background-color: var(--sparkle-color);
             border-radius: 50%;
+            pointer-events: none; /* Crucial para que no bloquee el clic */
+            opacity: 0; /* Inicialmente invisible */
+            animation: sparkleFade 3s ease-out forwards;
+            filter: blur(1px); /* Efecto de brillo suave */
+            box-shadow: 0 0 8px var(--sparkle-color);
         }
 
-        .heart::before {
-            top: -7.5px;
-            left: 0;
+        @keyframes sparkleFade {
+            0% { opacity: 0; transform: scale(0); }
+            20% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5) translateY(50px); }
         }
 
-        .heart::after {
-            left: 7.5px;
-            top: 0;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1); opacity: 0; }
-        }
+        /* --- 4. FUENTES DE GOOGLE (OPCIONAL, PERO RECOMENDADO) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
     </style>
 </head>
 <body>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const colors = ['#e91e63', '#ff4081', '#fce4ec'];
+<div class="main-message-container" id="message-box">
+    <h1>¡Para Mi Amor Más Bonita! 💖</h1>
+    <p class="reveal-message" id="hidden-message">
+        "En cada estrella veo tu brillo, en cada flor siento tu esencia. Eres la melodía que alegra mi alma y la razón de mi sonrisa. Gracias por ser tú, mi vida entera."
+    </p>
+    <p class="reveal-message visible" style="font-size: 1.2em; color: var(--accent-color); opacity: 1; max-height: 100px;">
+        ¡Haz clic aquí para un mensaje especial!
+    </p>
+</div>
 
-            function createHeart() {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                
-                // Posición aleatoria en el eje X
-                heart.style.left = Math.random() * 100 + 'vw';
-                
-                // Tamaño y duración aleatorios
-                const size = Math.random() * 10 + 10;
-                heart.style.width = size + 'px';
-                heart.style.height = size + 'px';
-                
-                const duration = Math.random() * 5 + 5;
-                heart.style.animationDuration = duration + 's';
-                
-                // Retraso para que aparezcan escalonadamente
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                
-                // Color aleatorio
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                heart.style.backgroundColor = color;
-                heart.style.setProperty('--color-principal', color);
+<script>
+    const messageBox = document.getElementById('message-box');
+    const hiddenMessage = document.getElementById('hidden-message');
+    const body = document.body;
+    let messageRevealed = false;
 
-                // Agregar los pseudo-elementos (la forma de corazón)
-                const before = document.createElement('style');
-                before.innerHTML = `.heart::before { background-color: ${color}; }`;
-                document.head.appendChild(before);
+    // --- Revelar mensaje al hacer clic ---
+    messageBox.addEventListener('click', () => {
+        if (!messageRevealed) {
+            hiddenMessage.classList.add('visible');
+            messageBox.style.paddingBottom = '30px'; // Ajustar padding para el mensaje
+            messageRevealed = true;
+            // Opcional: Cambiar el texto de "Haz clic" una vez revelado
+            const clickPrompt = messageBox.querySelector('p:last-child');
+            if (clickPrompt) clickPrompt.textContent = "¡Te amo más de lo que las palabras pueden expresar!";
+        }
+    });
 
-                const after = document.createElement('style');
-                after.innerHTML = `.heart::after { background-color: ${color}; }`;
-                document.head.appendChild(after);
-                
-                body.appendChild(heart);
+    // --- Generación de partículas mágicas al mover el ratón ---
+    body.addEventListener('mousemove', (e) => {
+        for (let i = 0; i < 2; i++) { // Genera 2 partículas por movimiento para un efecto más denso
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            const size = Math.random() * 8 + 4; // Tamaño entre 4 y 12px
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${e.clientX + (Math.random() * 20 - 10)}px`; // Posición aleatoria cerca del cursor
+            sparkle.style.top = `${e.clientY + (Math.random() * 20 - 10)}px`;
+            sparkle.style.animationDuration = `${Math.random() * 2 + 2}s`; // Duración de 2 a 4 segundos
+            sparkle.style.animationDelay = `${Math.random() * 0.1}s`; // Pequeño retraso para variación
 
-                // Eliminar el corazón después de su animación
-                setTimeout(() => {
-                    heart.remove();
-                }, duration * 1000);
-            }
+            body.appendChild(sparkle);
 
-            // Crear una cantidad de corazones (ej. 30)
-            for (let i = 0; i < 30; i++) {
-                createHeart();
-            }
-            
-            // Seguir creando corazones para un ciclo infinito
-            setInterval(createHeart, 300); // Crea un nuevo corazón cada 300ms
-        });
-    </script>
-    <div class="container">
-        <div class="title">
-            ¡Te Amo Mucho!
-        </div>
-        <div class="question">
-            ¿Quieres ser mi novia?
-        </div>
-        
-        <div class="buttons-group">
-            <button id="yes-button" class="button" onclick="alert('¡Sabía que dirías que SÍ! Te adoro. Ahora somos novios ❤️')">
-                ¡SÍ!
-            </button>
-            <button id="maybe-button" class="button">
-                Tal vez...
-            </button>
-        </div>
-    </div>
+            // Remover la chispa después de su animación
+            sparkle.addEventListener('animationend', () => {
+                sparkle.remove();
+            });
+        }
+    });
 
-    <script>
-        const maybeButton = document.getElementById('maybe-button');
-        const container = document.querySelector('.container');
-
-        maybeButton.addEventListener('mouseover', () => {
-            // Obtener el tamaño del contenedor y del botón
-            const containerRect = container.getBoundingClientRect();
-            const buttonRect = maybeButton.getBoundingClientRect();
-
-            // Calcular límites para que el botón no se salga del contenedor
-            // El desplazamiento debe ser dentro del contenedor (ancho - ancho_boton)
-            const maxX = containerRect.width - buttonRect.width - 60; // -60 por el padding del container
-            const maxY = containerRect.height - buttonRect.height - 100;
-
-            // Generar nuevas posiciones aleatorias dentro del rango
-            // Posición X: de 0 a maxX
-            let newX = Math.random() * maxX;
-            // Posición Y: de 0 a maxY (pero no muy cerca del título)
-            let newY = Math.random() * maxY;
-
-            // Ajustar el origen de la posición para que el botón se mueva solo un poco desde el centro
-            const centerOffsetX = (containerRect.width / 2) - (buttonRect.width / 2);
-            const centerOffsetY = (containerRect.height / 2) - (buttonRect.height / 2);
-
-            // Queremos que el botón se mueva respecto a su posición *original* en la caja.
-            // Para simplificar, lo movemos con 'transform: translate' a una nueva posición dentro del contenedor.
-            
-            // Si el botón está en la posición 'static' del flexbox, movemos el botón
-            // una cantidad aleatoria (ej. ±150px) pero siempre cerca del botón de SÍ
-            
-            // Para mantener el botón "Tal vez" cerca del botón "¡SÍ!" y en la fila:
-            // Vamos a hacer que se mueva en un rango pequeño.
-            
-            // Rango de movimiento (ej. 150px)
-            const moveRange = 100;
-            
-            // Generar un pequeño movimiento aleatorio (entre -moveRange/2 y +moveRange/2)
-            const randomX = Math.floor(Math.random() * moveRange) - (moveRange / 2);
-            const randomY = Math.floor(Math.random() * moveRange) - (moveRange / 2);
-
-            // Aplicar la transformación de movimiento
-            maybeButton.style.position = 'relative'; // Necesario para que el translate funcione bien
-            maybeButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            maybeButton.style.transition = 'transform 0.2s ease-out'; // Para que se mueva rápido
-            
-            // Pequeño truco para que si la persona intenta hacer clic, sea difícil:
-            maybeButton.onclick = () => {
-                alert('¡Ups! Tienes que intentarlo otra vez. ¡El botón de SÍ es el importante! 😉');
-            };
-        });
-
-        // Asegúrate de que el botón regrese a su posición si no hay mouse encima
-        maybeButton.addEventListener('mouseleave', () => {
-            maybeButton.style.transform = 'translate(0, 0)';
-            maybeButton.style.transition = 'transform 0.4s ease-out'; // Transición más lenta para volver
-            maybeButton.onclick = null; // Quitar el truco de no clic
-        });
-    </script>
+    // Asegurarse de que la fuente se cargue antes de mostrar el contenido (mejora la experiencia)
+    document.addEventListener('DOMContentLoaded', () => {
+        const fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap';
+        fontLink.rel = 'stylesheet';
+        document.head.appendChild(fontLink);
+    });
+</script>
 </body>
 </html>
